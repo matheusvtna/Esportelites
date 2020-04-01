@@ -3,5 +3,6 @@
     <pages>
         <page name='Menu'/>
         <page name='Quiz'/>
+        <page name='Information'/>
     </pages>
 </playground>

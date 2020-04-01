@@ -16,7 +16,7 @@ class MyViewController : UIViewController {
     var answerD = UIButton()
     
     let fontTitle = UIFont(name: "ChalkboardSE-Light", size: 96)
-    let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 20)
+    let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 26)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
     
     override func loadView() {
@@ -40,20 +40,21 @@ class MyViewController : UIViewController {
         sportImage.image = UIImage(imageLiteralResourceName: "BaseballImage.png")
         
         // Quiz
-        question.frame = CGRect(x: 481, y: 324, width: 412, height: 31)
+        question.frame = CGRect(x: 400, y: 300, width: 580, height: 70)
+        question.numberOfLines = 2
         question.textAlignment = .center
         question.text = "What is the original country of Baseball?"
         question.font = fontLabel
         question.textColor = .black
         
-        answerA.frame = CGRect(x: 478, y: 382, width: 382, height: 30)
+        answerA.frame = CGRect(x: 487, y: 382, width: 382, height: 30)
         answerA.setTitle("a. United States", for: .normal)
         answerA.titleLabel?.font = fontLabel
         answerA.setTitleColor(.black, for: .normal)
         answerA.titleLabel?.textAlignment = .left
         answerA.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
-        answerB.frame = CGRect(x: 451, y: 427, width: 382, height: 30)
+        answerB.frame = CGRect(x: 454, y: 427, width: 382, height: 30)
         answerB.setTitle("b. England", for: .normal)
         answerB.titleLabel?.font = fontLabel
         answerB.setTitleColor(.black, for: .normal)
@@ -67,13 +68,12 @@ class MyViewController : UIViewController {
         answerC.titleLabel?.textAlignment = .left
         answerC.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
-        answerD.frame = CGRect(x: 477, y: 517, width: 382, height: 30)
+        answerD.frame = CGRect(x: 485, y: 517, width: 382, height: 30)
         answerD.setTitle("d. South Africa", for: .normal)
         answerD.titleLabel?.font = fontLabel
         answerD.setTitleColor(.black, for: .normal)
         answerD.titleLabel?.textAlignment = .natural
         answerD.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
-        
         
         view.addSubview(backgroundQuiz)
         view.addSubview(sportLabel)
