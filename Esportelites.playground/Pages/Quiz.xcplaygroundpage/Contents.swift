@@ -9,9 +9,14 @@ class MyViewController : UIViewController {
     let backgroundQuiz = UIImageView()
     let sportLabel = UILabel()
     let sportImage = UIImageView()
-
+    var question = UILabel()
+    var answerA = UIButton()
+    var answerB = UIButton()
+    var answerC = UIButton()
+    var answerD = UIButton()
+    
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 96)
-    let fontButton = UIFont(name: "ChalkboardSE-Light", size: 36)
+    let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
     
     override func loadView() {
         let view = UIView()
@@ -19,7 +24,7 @@ class MyViewController : UIViewController {
         // Background
         backgroundQuiz.contentMode = .scaleToFill
         backgroundQuiz.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
-        backgroundQuiz.image = UIImage(imageLiteralResourceName: "Background.png")
+        backgroundQuiz.image = UIImage(imageLiteralResourceName: "BackgroundQuiz.png")
         
         // Sport Label
         sportLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
@@ -35,7 +40,7 @@ class MyViewController : UIViewController {
         
         // Next Question Button
         buttonChangeColor.frame = CGRect(x: 591, y: 503, width: 219, height: 67)
-        buttonChangeColor.setTitle("Toque", for: .normal)
+        buttonChangeColor.setTitle("Touch", for: .normal)
         buttonChangeColor.titleLabel?.font = fontButton
         buttonChangeColor.titleLabel?.textAlignment = .center
         buttonChangeColor.setTitleColor(.black, for: .normal)
@@ -44,7 +49,6 @@ class MyViewController : UIViewController {
         
         view.addSubview(backgroundQuiz)
         view.addSubview(sportLabel)
-        
         view.addSubview(sportImage)
         view.addSubview(buttonChangeColor)
                 
@@ -52,22 +56,11 @@ class MyViewController : UIViewController {
     }
     
     @IBAction func touchedButton(){
-        print("Oi")
+        print("Next Question")
     }
     
 }
 
-//        var fontNames = [String]()
-//
-//        for name in UIFont.familyNames {
-//            fontNames.append(contentsOf: UIFont.fontNames(forFamilyName: name) as [String])
-//        }
-//
-//        fontNames.sorted()
-//        for fonte in fontNames{
-//            print(fonte)
-//        }
-
 let mvc = MyViewController(screenType: .mac, isPortrait: true)
 
-PlaygroundPage.current.liveView = mvc.scale(to: 0.4)
+PlaygroundPage.current.liveView = mvc.scale(to: 0.2)
