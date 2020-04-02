@@ -3,7 +3,7 @@
 import UIKit
 import PlaygroundSupport
 
-class MyViewController : UIViewController {
+class QuizViewController : UIViewController {
     
     let buttonChangeColor = UIButton()
     let backgroundQuiz = UIImageView()
@@ -103,6 +103,6 @@ class MyViewController : UIViewController {
     
 }
 
-let mvc = MyViewController(screenType: .mac, isPortrait: true)
+let quiz = QuizViewController(screenType: .mac, isPortrait: true)
 
-PlaygroundPage.current.liveView = mvc.scale(to: 0.4)
+PlaygroundPage.current.liveView = quiz.scale(to: 0.4)

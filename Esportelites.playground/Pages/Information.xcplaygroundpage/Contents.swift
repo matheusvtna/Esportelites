@@ -3,7 +3,7 @@
 import UIKit
 import PlaygroundSupport
 
-class MyViewController : UIViewController {
+class InformationViewController : UIViewController {
     
     let backgroundCongrats = UIImageView()
     let backgroundInform = UIImageView()
@@ -55,6 +55,6 @@ class MyViewController : UIViewController {
     
 }
 
-let mvc = MyViewController(screenType: .mac, isPortrait: true)
+let mvc = InformationViewController(screenType: .mac, isPortrait: true)
 
 PlaygroundPage.current.liveView = mvc.scale(to: 0.4)
