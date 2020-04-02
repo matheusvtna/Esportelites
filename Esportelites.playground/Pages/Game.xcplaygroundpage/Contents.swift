@@ -1,5 +1,6 @@
 import UIKit
 import PlaygroundSupport
+import SceneKit
 
 class MenuViewController : UIViewController {
     
@@ -248,6 +249,6 @@ let navigation = UINavigationController(screenType: .mac, isPortrait: true)
 navigation.navigationBar.isHidden = true
 navigation.pushViewController(menu, animated: true)
 
-PlaygroundPage.current.liveView = navigation.scale(to: 0.4)
+PlaygroundPage.current.liveView = navigation.scale(to: 0.3)
 
 
