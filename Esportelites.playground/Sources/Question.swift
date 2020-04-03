@@ -22,12 +22,16 @@ public class Question{
     
 }
 
-public class QuestionBank{
+public class QuestionsBank{
     
     public var quiz: [Question]
     
     public init() {
         self.quiz = []
+    }
+    
+    public init(questions: [Question]){
+        self.quiz = questions
     }
     
     public func addQuestion(question: Question){
