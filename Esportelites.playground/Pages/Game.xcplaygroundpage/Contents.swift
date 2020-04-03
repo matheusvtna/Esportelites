@@ -25,6 +25,8 @@ class MenuViewController : UIViewController {
         
         globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
         globe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
+        globe.rotation = SCNVector4(x: 2.0, y: 2.0, z: 2.0, w: 0.0)
+        
         
         let viewEarth = SCNView(frame: CGRect(x: 0, y: 100, width: 1440, height: 700))
         viewEarth.allowsCameraControl = true
@@ -82,45 +84,23 @@ class MenuViewController : UIViewController {
         self.view = view
     }
     
-    func wait(){
-        UIView.animate(withDuration: 100.0, animations: {}, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                let spin = CABasicAnimation(keyPath: "rotation.w") // only animate the angle
-                spin.toValue = Double.pi
-                spin.duration = 3
-                spin.repeatCount = HUGE // for infinity
-                self.globe.addAnimation(spin, forKey: "spin around")
-            })
-        })
-    }
-    
-    func animateScaleDown(){
-        
-        UIView.animate(withDuration: 2.2, animations: {
-            let spin = CABasicAnimation(keyPath: "rotation.w") // only animate the angle
-            spin.toValue = Double.pi
-            spin.duration = 3
-            spin.repeatCount = HUGE // for infinity
-            self.globe.addAnimation(spin, forKey: "spin around")
-            
-        }, completion: { _ in
-            self.wait()
-        })
+    func animateGlobe(){
+        let spin = CABasicAnimation(keyPath: "rotation.w")
+        spin.toValue = 10*Double.pi
+        spin.duration = 10.0
+        spin.repeatCount = 2.0
+        self.globe.addAnimation(spin, forKey: "spin around")
         
     }
     
     @objc func touchedStart(){
         
-        animateScaleDown()
+        animateGlobe()
         
-        let spin = CABasicAnimation(keyPath: "rotation.w")
-        spin.toValue = Double.pi
-        spin.duration = 10000
-        spin.repeatCount = HUGE // for infinity
-        self.globe.addAnimation(spin, forKey: "spin around")
-        
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.pushViewController(quiz, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.pushViewController(quiz, animated: true)
+        }
     }
     
     @IBAction func touchedScoreView(){
