@@ -13,7 +13,6 @@ class MenuViewController : UIViewController {
     let scene = SCNScene()
     let globe = SCNNode()
     
-    
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 96)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
     
@@ -25,8 +24,13 @@ class MenuViewController : UIViewController {
         
         globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
         globe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
-        globe.rotation = SCNVector4(x: 10000.0, y: 3001.0, z: 8700.0, w: 0.0)
         
+        let spin = CABasicAnimation(keyPath: "rotation.w")
+        spin.toValue = 2*Double.pi
+        spin.duration = 10.0
+        spin.repeatCount = HUGE
+        globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
+        globe.addAnimation(spin, forKey: "spin around")
         
         let viewEarth = SCNView(frame: CGRect(x: 0, y: 100, width: 1440, height: 700))
         viewEarth.allowsCameraControl = true
@@ -85,16 +89,23 @@ class MenuViewController : UIViewController {
     }
     
     @objc func touchedStart(){
-                
-        let spin = CABasicAnimation(keyPath: "rotation.w")
+        var spin = CABasicAnimation(keyPath: "rotation.w")
         spin.toValue = 1000*Double.pi
         spin.duration = 4.0
         spin.repeatCount = 1.0
+        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
         self.globe.addAnimation(spin, forKey: "spin around")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
+        
+        
+            spin.toValue = 2*Double.pi
+            spin.duration = 10.0
+            spin.repeatCount = HUGE
+            self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
+            self.globe.addAnimation(spin, forKey: "spin around")
         }
     }
     
