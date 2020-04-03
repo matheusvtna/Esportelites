@@ -25,7 +25,7 @@ class MenuViewController : UIViewController {
         
         globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
         globe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
-        globe.rotation = SCNVector4(x: 2.0, y: 2.0, z: 2.0, w: 0.0)
+        globe.rotation = SCNVector4(x: 10000.0, y: 3001.0, z: 8700.0, w: 0.0)
         
         
         let viewEarth = SCNView(frame: CGRect(x: 0, y: 100, width: 1440, height: 700))
@@ -84,20 +84,15 @@ class MenuViewController : UIViewController {
         self.view = view
     }
     
-    func animateGlobe(){
+    @objc func touchedStart(){
+                
         let spin = CABasicAnimation(keyPath: "rotation.w")
-        spin.toValue = 10*Double.pi
-        spin.duration = 10.0
-        spin.repeatCount = 2.0
+        spin.toValue = 1000*Double.pi
+        spin.duration = 4.0
+        spin.repeatCount = 1.0
         self.globe.addAnimation(spin, forKey: "spin around")
         
-    }
-    
-    @objc func touchedStart(){
-        
-        animateGlobe()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
         }
