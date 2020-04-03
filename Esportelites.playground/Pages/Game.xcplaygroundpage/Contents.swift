@@ -16,7 +16,7 @@ class MenuViewController : UIViewController {
     
     override func loadView() {
         let view = UIView()
-
+        
         // Background
         backgroundMenu.contentMode = .scaleToFill
         backgroundMenu.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
@@ -28,7 +28,7 @@ class MenuViewController : UIViewController {
         titleLabel.text = "Welcome to Sportellites!"
         titleLabel.font = fontLabel
         titleLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-            
+        
         instructionLabel.frame = CGRect(x: 90, y: 110, width: 1230, height: 90)
         instructionLabel.textAlignment = .center
         instructionLabel.text = "Swipe the sports satellites and choose the mode to start the quiz."
@@ -54,14 +54,14 @@ class MenuViewController : UIViewController {
         scoreLabel.text = "Score"
         scoreLabel.font = fontButton
         scoreLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-
+        
         view.addSubview(backgroundMenu)
         view.addSubview(titleLabel)
         view.addSubview(instructionLabel)
         view.addSubview(buttonStart)
         view.addSubview(trophyButton)
         view.addSubview(scoreLabel)
-                
+        
         self.view = view
     }
     
@@ -77,7 +77,7 @@ class MenuViewController : UIViewController {
 }
 
 class QuizViewController : UIViewController {
-
+    
     let buttonChangeColor = UIButton()
     let backgroundQuiz = UIImageView()
     let sportLabel = UILabel()
@@ -94,7 +94,7 @@ class QuizViewController : UIViewController {
     
     override func loadView() {
         let view = UIView()
-
+        
         // Background
         backgroundQuiz.contentMode = .scaleToFill
         backgroundQuiz.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
@@ -106,7 +106,7 @@ class QuizViewController : UIViewController {
         sportLabel.text = "Baseball"
         sportLabel.font = fontTitle
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-
+        
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 645, y: 125, width: 110, height: 115)
@@ -214,7 +214,7 @@ class CorrectViewController : UIViewController {
         sportLabel.text = "Baseball"
         sportLabel.font = fontTitle
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-
+        
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 645, y: 125, width: 110, height: 115)
