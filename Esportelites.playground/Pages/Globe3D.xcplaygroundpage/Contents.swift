@@ -5,12 +5,10 @@ import PlaygroundSupport
 class Earth: UIViewController{
     
     override func loadView() {
-        let viewMaster = UIView()
-        
         let scene = SCNScene()
 
         let globe = SCNNode()
-        globe.geometry = SCNSphere(radius: 0.5)
+        globe.geometry = SCNSphere(radius: 0.01)
         scene.rootNode.addChildNode(globe)
 
          globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
@@ -21,9 +19,11 @@ class Earth: UIViewController{
 
         view.allowsCameraControl = true
         view.autoenablesDefaultLighting = true
-        view.showsStatistics = true
+        view.showsStatistics = false
         view.scene = scene
         view.backgroundColor = #colorLiteral(red: 0.0470588244497776, green: 0.0, blue: 0.129411771893501, alpha: 1.0)
+        
+        self.view = view
     }
     
 }
@@ -31,7 +31,7 @@ class Earth: UIViewController{
 let menu = Earth(screenType: .mac, isPortrait: true)
 
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = menu
+PlaygroundPage.current.liveView = menu.scale(to: 0.3)
 
 
 
