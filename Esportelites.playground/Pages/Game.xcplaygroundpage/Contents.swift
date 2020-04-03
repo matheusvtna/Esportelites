@@ -99,8 +99,7 @@ class MenuViewController : UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
-        
-        
+
             spin.toValue = 2*Double.pi
             spin.duration = 10.0
             spin.repeatCount = HUGE
