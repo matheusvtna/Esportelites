@@ -15,7 +15,7 @@ class Earth: UIViewController{
 
         globe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
 
-        let view = SCNView(frame: CGRect(x: 0, y: 0, width: 800, height: 600))
+        let view = SCNView(frame: CGRect(x: 0, y: 200, width: 200, height: 100))
 
         view.allowsCameraControl = true
         view.autoenablesDefaultLighting = true

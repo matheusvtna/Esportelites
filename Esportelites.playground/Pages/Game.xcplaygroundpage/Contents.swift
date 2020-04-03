@@ -10,6 +10,9 @@ class MenuViewController : UIViewController {
     let instructionLabel = UILabel()
     let trophyButton = UIButton()
     let scoreLabel = UILabel()
+    let scene = SCNScene()
+    let globe = SCNNode()
+    
     
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 96)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
@@ -17,10 +20,23 @@ class MenuViewController : UIViewController {
     override func loadView() {
         let view = UIView()
         
+        globe.geometry = SCNSphere(radius: 2.0)
+        scene.rootNode.addChildNode(globe)
+        
+        globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
+        globe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
+        
+        let viewEarth = SCNView(frame: CGRect(x: 0, y: 100, width: 1440, height: 700))
+        viewEarth.allowsCameraControl = true
+        viewEarth.autoenablesDefaultLighting = true
+        viewEarth.showsStatistics = false
+        viewEarth.scene = scene
+        viewEarth.backgroundColor = .clear
+        
         // Background
         backgroundMenu.contentMode = .scaleToFill
         backgroundMenu.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
-        backgroundMenu.image = UIImage(imageLiteralResourceName: "BackgroundMenu.png")
+        backgroundMenu.image = UIImage(imageLiteralResourceName: "BackgroundStars.png")
         
         // Title Label
         titleLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
@@ -56,8 +72,9 @@ class MenuViewController : UIViewController {
         scoreLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
         
         view.addSubview(backgroundMenu)
+        view.addSubview(viewEarth)
         view.addSubview(titleLabel)
-        view.addSubview(instructionLabel)
+        //view.addSubview(instructionLabel)
         view.addSubview(buttonStart)
         view.addSubview(trophyButton)
         view.addSubview(scoreLabel)
@@ -65,7 +82,43 @@ class MenuViewController : UIViewController {
         self.view = view
     }
     
+    func wait(){
+        UIView.animate(withDuration: 100.0, animations: {}, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                let spin = CABasicAnimation(keyPath: "rotation.w") // only animate the angle
+                spin.toValue = Double.pi
+                spin.duration = 3
+                spin.repeatCount = HUGE // for infinity
+                self.globe.addAnimation(spin, forKey: "spin around")
+            })
+        })
+    }
+    
+    func animateScaleDown(){
+        
+        UIView.animate(withDuration: 2.2, animations: {
+            let spin = CABasicAnimation(keyPath: "rotation.w") // only animate the angle
+            spin.toValue = Double.pi
+            spin.duration = 3
+            spin.repeatCount = HUGE // for infinity
+            self.globe.addAnimation(spin, forKey: "spin around")
+            
+        }, completion: { _ in
+            self.wait()
+        })
+        
+    }
+    
     @objc func touchedStart(){
+        
+        animateScaleDown()
+        
+        let spin = CABasicAnimation(keyPath: "rotation.w")
+        spin.toValue = Double.pi
+        spin.duration = 10000
+        spin.repeatCount = HUGE // for infinity
+        self.globe.addAnimation(spin, forKey: "spin around")
+        
         navigationController?.navigationBar.isHidden = true
         navigationController?.pushViewController(quiz, animated: true)
     }
@@ -80,6 +133,7 @@ class QuizViewController : UIViewController {
     
     let buttonChangeColor = UIButton()
     let backgroundQuiz = UIImageView()
+    let backButton = UIButton()
     let sportLabel = UILabel()
     let sportImage = UIImageView()
     var question = UILabel()
@@ -111,6 +165,11 @@ class QuizViewController : UIViewController {
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 645, y: 125, width: 110, height: 115)
         sportImage.image = UIImage(imageLiteralResourceName: "BaseballImage.png")
+        
+        // Botão de voltar
+        backButton.frame = CGRect(x: 80, y: 25, width: 100, height: 100)
+        backButton.setImage(UIImage(imageLiteralResourceName: "ArrowBack.png"), for: .normal)
+        backButton.addTarget(self, action: #selector(touchedBack), for: .touchUpInside)
         
         // Quiz
         question.frame = CGRect(x: 400, y: 300, width: 580, height: 70)
@@ -151,6 +210,7 @@ class QuizViewController : UIViewController {
         view.addSubview(backgroundQuiz)
         view.addSubview(sportLabel)
         view.addSubview(sportImage)
+        view.addSubview(backButton)
         view.addSubview(question)
         view.addSubview(answerA)
         view.addSubview(answerB)
@@ -158,6 +218,11 @@ class QuizViewController : UIViewController {
         view.addSubview(answerD)
         
         self.view = view
+    }
+    
+    @objc func touchedBack(){
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func selectAnswer(_ sender: UIButton){
