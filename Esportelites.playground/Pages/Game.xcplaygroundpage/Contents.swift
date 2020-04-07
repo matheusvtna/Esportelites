@@ -97,6 +97,8 @@ class MenuViewController : UIViewController {
 //        self.globe.addAnimation(spin, forKey: "spin around")
 
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+        
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
 
@@ -134,6 +136,8 @@ class QuizViewController : UIViewController {
     override func loadView() {
         let view = UIView()
 
+        print("Question index = \(questionIndex)")
+        
         // Background
         backgroundQuiz.contentMode = .scaleToFill
         backgroundQuiz.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
@@ -142,14 +146,14 @@ class QuizViewController : UIViewController {
         // Sport Label
         sportLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
         sportLabel.textAlignment = .center
-        sportLabel.text = "Baseball"
+        sportLabel.text = game.quiz[sportIndex].name
         sportLabel.font = fontTitle
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
 
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
-        sportImage.image = UIImage(imageLiteralResourceName: "BaseballImage.png")
+        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
 
         // Botão de voltar
         backButton.frame = CGRect(x: 50, y: 25, width: 100, height: 100)
@@ -160,38 +164,38 @@ class QuizViewController : UIViewController {
         question.frame = CGRect(x: 400, y: 300, width: 580, height: 70)
         question.numberOfLines = 2
         question.textAlignment = .center
-        question.text = "Qual o país de origem do Baseball?"
+        question.text = game.quiz[sportIndex].questions[questionIndex].asking
         question.font = fontLabel
         question.textColor = .black
 
-        answerA.frame = CGRect(x: 487, y: 382, width: 382, height: 30)
-        answerA.setTitle("a. Estados Unidos", for: .normal)
+        answerA.frame = CGRect(x: 487, y: 382, width: 382, height: 10)
+        answerA.setTitle(game.quiz[sportIndex].questions[questionIndex].alternativeA, for: .normal)
         answerA.titleLabel?.font = fontLabel
         answerA.setTitleColor(.black, for: .normal)
         answerA.titleLabel?.textAlignment = .left
         answerA.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
 
-        answerB.frame = CGRect(x: 454, y: 427, width: 382, height: 30)
-        answerB.setTitle("b. Inglaterra", for: .normal)
+        answerB.frame = CGRect(x: 454, y: 427, width: 382, height: 10)
+        answerA.setTitle(game.quiz[sportIndex].questions[questionIndex].alternativeB, for: .normal)
         answerB.titleLabel?.font = fontLabel
         answerB.setTitleColor(.black, for: .normal)
         answerB.titleLabel?.textAlignment = .left
         answerB.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
 
-        answerC.frame = CGRect(x: 444, y: 475, width: 382, height: 30)
-        answerC.setTitle("c. Brasil", for: .normal)
+        answerC.frame = CGRect(x: 444, y: 475, width: 382, height: 10)
+        answerA.setTitle(game.quiz[sportIndex].questions[questionIndex].alternativeC, for: .normal)
         answerC.titleLabel?.font = fontLabel
         answerC.setTitleColor(.black, for: .normal)
         answerC.titleLabel?.textAlignment = .left
         answerC.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
 
-        answerD.frame = CGRect(x: 485, y: 517, width: 382, height: 30)
-        answerD.setTitle("d. África do Sul", for: .normal)
+        answerD.frame = CGRect(x: 485, y: 517, width: 382, height: 10)
+        answerA.setTitle(game.quiz[sportIndex].questions[questionIndex].alternativeD, for: .normal)
         answerD.titleLabel?.font = fontLabel
         answerD.setTitleColor(.black, for: .normal)
         answerD.titleLabel?.textAlignment = .natural
         answerD.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
-
+        
         view.addSubview(backgroundQuiz)
         view.addSubview(sportLabel)
         view.addSubview(sportImage)
@@ -208,6 +212,13 @@ class QuizViewController : UIViewController {
     @objc func touchedBack(){
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.popViewController(animated: true)
+        
+        sport = ""
+        sportIndex = 0
+        questionIndex = 0
+        isCorrect = false
+        isLast = false
+
     }
 
     @objc func selectAnswer(_ sender: UIButton){
@@ -215,17 +226,23 @@ class QuizViewController : UIViewController {
         answerB.setTitleColor(.black, for: .normal)
         answerC.setTitleColor(.black, for: .normal)
         answerD.setTitleColor(.black, for: .normal)
-
-        if(sender == answerB){
+                
+        if(sender.titleLabel?.text == game.quiz[sportIndex].questions[questionIndex].answer){
             sender.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.9294117647, blue: 0.4588235294, alpha: 1), for: .normal)
+            isCorrect = true
         }
         else{
             sender.setTitleColor(#colorLiteral(red: 0.7843137255, green: 0.1215686275, blue: 0.3098039216, alpha: 1), for: .normal)
+            isCorrect = false
+        }
+        
+        if(questionIndex == game.quiz[sportIndex].questions.count - 1){
+            isLast = true
         }
 
-        questionIndex += 1
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
+            let inform = InformViewController(screenType: .mac, isPortrait: true)
+                        
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(inform, animated: true)
         }
@@ -235,6 +252,8 @@ class QuizViewController : UIViewController {
             self.answerB.setTitleColor(.black, for: .normal)
             self.answerC.setTitleColor(.black, for: .normal)
             self.answerD.setTitleColor(.black, for: .normal)
+            
+            questionIndex += 1
         }
         
     }
@@ -242,8 +261,7 @@ class QuizViewController : UIViewController {
 
 class InformViewController : UIViewController {
 
-    let backgroundCorrect = UIImageView()
-    let backgroundIncorrect = UIImageView()
+    let background = UIImageView()
     let sportLabel = UILabel()
     let sportImage = UIImageView()
     let msglabel = UILabel()
@@ -259,31 +277,38 @@ class InformViewController : UIViewController {
         let view = UIView()
 
         // Background
-        backgroundCorrect.contentMode = .scaleToFill
-        backgroundCorrect.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
-        backgroundCorrect.image = UIImage(imageLiteralResourceName: "BackgroundCorrect.png")
-
-        backgroundIncorrect.contentMode = .scaleToFill
-        backgroundIncorrect.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
-        backgroundIncorrect.image = UIImage(imageLiteralResourceName: "BackgroundIncorrect.png")
-
+        background.contentMode = .scaleToFill
+        background.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
+        if(isCorrect){
+            background.image = UIImage(imageLiteralResourceName: "BackgroundCorrect.png")
+        }
+        else{
+            background.image = UIImage(imageLiteralResourceName: "BackgroundIncorrect.png")
+        }
+        
         // Sport Label
         sportLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
         sportLabel.textAlignment = .center
-        sportLabel.text = "Baseball"
+        sportLabel.text = game.quiz[sportIndex].name
         sportLabel.font = fontTitle
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
 
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
-        sportImage.image = UIImage(imageLiteralResourceName: "BaseballImage.png")
+        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
 
         msglabel.font = fontButton
         msglabel.frame = CGRect(x: 430, y: 300, width: 585, height: 80)
         msglabel.textAlignment = .center
-        msglabel.text = "Você acertou!!!"
 
+        if(isCorrect){
+            msglabel.text = "Você acertou!!!"
+        }
+        else{
+            msglabel.text = "Você errou..."
+        }
+        
         informLabel.numberOfLines = 6
         informLabel.font = fontLabel
         informLabel.frame = CGRect(x: 450, y: 250, width: 585, height: 400)
@@ -292,14 +317,21 @@ class InformViewController : UIViewController {
 
         // Next Button
         nextButton.frame = CGRect(x: 558, y: 703, width: 319, height: 67)
-        nextButton.setTitle("Próxima Pergunta", for: .normal)
+        
+        if(isLast){
+            nextButton.setTitle(" Finalizar Quiz ", for: .normal)
+        }
+        else{
+            nextButton.setTitle("Próxima Pergunta", for: .normal)
+        }
+        
         nextButton.titleLabel?.font = fontButton
         nextButton.titleLabel?.textAlignment = .center
         nextButton.setTitleColor(.black, for: .normal)
         nextButton.setBackgroundImage(UIImage(imageLiteralResourceName: "proxPergunta.png"), for: .normal)
         nextButton.addTarget(self, action: #selector(touchedNext), for: .touchUpInside)
         
-        view.addSubview(backgroundIncorrect)
+        view.addSubview(background)
         view.addSubview(sportLabel)
         view.addSubview(sportImage)
         view.addSubview(msglabel)
@@ -310,23 +342,33 @@ class InformViewController : UIViewController {
     }
     
     @objc func touchedNext(){
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.popViewController(animated: true)
+
+        print("\(questionIndex) = \(game.quiz[sportIndex].questions.count - 1)")
+        
+        if(questionIndex == game.quiz[sportIndex].questions.count){
+            questionIndex = 0
+            self.navigationController?.popToViewController(menu, animated: true)
+        }
+        else{
+            let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.pushViewController(quiz, animated: true)
+        }
+        
     }
 }
 
 var sportIndex: Int = 0
 var questionIndex: Int = 0
 var sport: String = ""
-var correct: Bool = false
+var isCorrect: Bool = false
 var isLast: Bool = false
+var actualScore: Int = 0
 
 var game: Quiz = Quiz()
 game.quiz = Quiz.createQuiz()
 
 let menu = MenuViewController(screenType: .mac, isPortrait: true)
-let quiz = QuizViewController(screenType: .mac, isPortrait: true)
-let inform = InformViewController(screenType: .mac, isPortrait: true)
 
 let navigation = UINavigationController(screenType: .mac, isPortrait: true)
 
