@@ -19,23 +19,39 @@ public class Question{
         self.answer = answer
         self.information = inform
     }
-    
 }
 
-public class QuestionsBank{
+public class Sport{
     
-    public var quiz: [Question]
+    public let name: String
+    public var questions: [Question]
     
-    public init() {
+    public init(){
+        self.name = ""
+        self.questions = []
+    }
+    
+    public init(sport: String, questions: [Question]){
+        self.name = sport
+        self.questions = questions
+    }
+}
+
+public class Quiz{
+    
+    public var quiz: [Sport]
+    
+    public init(){
         self.quiz = []
     }
     
-    public init(questions: [Question]){
-        self.quiz = questions
+    public static func createQuiz() -> [Sport]{
+        
+        let baseballQuestions = [Question(asking: "Qual o país de origem do Baseball?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "Estados Unidos", inform: "O jogo foi criado nos Estados Unidos em 1839. Porém, as regras foram feitas em 1845, pelo norte-americano Alexander Cartwright. O primeiro jogo oficial foi disputado em 19 de junho de 1846, na cidade de Nova Iorque.")]
+        
+        
+        let soccerQuestions = [Question(asking: "Qual o país de origem do Futebol?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "Brasil", inform: "Os brasileiros são pika!")]
+        
+        return [Sport(sport: "Baseball", questions: baseballQuestions), Sport(sport: "Futebol", questions: soccerQuestions)]
     }
-    
-    public func addQuestion(question: Question){
-        self.quiz.append(question)
-    }
-    
 }
