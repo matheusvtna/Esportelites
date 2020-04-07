@@ -4,6 +4,7 @@ import SceneKit
 
 class MenuViewController : UIViewController {
     
+    let quiz = QuizViewController(screenType: .mac, isPortrait: true)
     let buttonStart = UIButton()
     let backgroundMenu = UIImageView()
     let titleLabel = UILabel()
@@ -96,7 +97,6 @@ class MenuViewController : UIViewController {
         //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
         //        self.globe.addAnimation(spin, forKey: "spin around")
         
-        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
         
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.pushViewController(quiz, animated: true)
@@ -112,6 +112,16 @@ class MenuViewController : UIViewController {
         print("Você é um perdedor, Matheus!")
     }
     
+}
+
+class ChooseViewController : UIViewController{
+    
+    let background = UIImageView()
+    let instructionLabel = UILabel()
+    
+    override func loadView(){
+        
+    }
 }
 
 class QuizViewController : UIViewController {
@@ -133,7 +143,7 @@ class QuizViewController : UIViewController {
     
     override func loadView() {
         let view = UIView()
-                
+        
         // Background
         backgroundQuiz.contentMode = .scaleToFill
         backgroundQuiz.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
@@ -236,14 +246,12 @@ class QuizViewController : UIViewController {
             isLast = true
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
-            let inform = InformViewController(screenType: .mac, isPortrait: true)
-            
+        let inform = InformViewController(screenType: .mac, isPortrait: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(inform, animated: true)
-        }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
             self.answerA.setTitleColor(.black, for: .normal)
             self.answerB.setTitleColor(.black, for: .normal)
             self.answerC.setTitleColor(.black, for: .normal)
@@ -251,7 +259,6 @@ class QuizViewController : UIViewController {
             
             questionIndex += 1
         }
-        
     }
 }
 
@@ -338,7 +345,7 @@ class InformViewController : UIViewController {
     }
     
     @objc func touchedNext(){
-          
+        
         if(questionIndex == game.quiz[sportIndex].questions.count){
             questionIndex = 0
             self.navigationController?.popToViewController(menu, animated: true)
@@ -355,12 +362,8 @@ class InformViewController : UIViewController {
 var game: Quiz = Quiz()
 game.quiz = Quiz.createQuiz()
 
-var sport: String = "Futebol"
-
+var sport: String = "Baseball"
 var sportIndex: Int = game.getIndexFromSport(sport: sport, bank: game)
-
-print("Index de \(sport): \(sportIndex)")
-
 var questionIndex: Int = 0
 var isCorrect: Bool = false
 var isLast: Bool = false
