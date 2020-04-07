@@ -47,10 +47,9 @@ public class Quiz{
     
     public static func createQuiz() -> [Sport]{
         
-        let baseballQuestions = [Question(asking: "Qual o país de origem do Baseball?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "Estados Unidos", inform: "O jogo foi criado nos Estados Unidos em 1839. Porém, as regras foram feitas em 1845, pelo norte-americano Alexander Cartwright. O primeiro jogo oficial foi disputado em 19 de junho de 1846, na cidade de Nova Iorque."), Question(asking: "Oi galhera?", labelA: "Oi", labelB: "E aí", labelC: "Dale", labelD: "Olá", answer: "Olá", inform: "Os brasileiros são pika!")]
+        let baseballQuestions = [Question(asking: "Qual o país de origem do Baseball?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "a. Estados Unidos", inform: "O jogo foi criado nos Estados Unidos em 1839. Porém, as regras foram feitas em 1845, pelo norte-americano Alexander Cartwright. O primeiro jogo oficial foi disputado em 19 de junho de 1846, na cidade de Nova Iorque."), Question(asking: "Oi galhera?", labelA: "Oi", labelB: "E aí", labelC: "Dale", labelD: "Olá", answer: "d. Olá", inform: "Bla bla bla")]
         
-        
-        let soccerQuestions = [Question(asking: "Qual o país de origem do Futebol?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "Brasil", inform: "Os brasileiros são pika!")]
+        let soccerQuestions = [Question(asking: "Qual o país de origem do Futebol?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "c. Brasil", inform: "Os brasileiros são pika!")]
         
         return [Sport(sport: "Baseball", questions: baseballQuestions), Sport(sport: "Futebol", questions: soccerQuestions)]
     }
