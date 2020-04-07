@@ -90,21 +90,21 @@ class MenuViewController : UIViewController {
     }
     
     @objc func touchedStart(){
-//        let spin = CABasicAnimation(keyPath: "rotation.w")
-//        spin.toValue = 1000*Double.pi
-//        spin.duration = 10.0
-//        spin.repeatCount = HUGE
-//        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
-//        self.globe.addAnimation(spin, forKey: "spin around")
+        //        let spin = CABasicAnimation(keyPath: "rotation.w")
+        //        spin.toValue = 1000*Double.pi
+        //        spin.duration = 10.0
+        //        spin.repeatCount = HUGE
+        //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
+        //        self.globe.addAnimation(spin, forKey: "spin around")
         
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.pushViewController(quiz, animated: true)
         
-//        spin.toValue = 2*Double.pi
-//        spin.duration = 10.0
-//        spin.repeatCount = HUGE
-//        self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
-//        self.globe.addAnimation(spin, forKey: "spin around")
+        //        spin.toValue = 2*Double.pi
+        //        spin.duration = 10.0
+        //        spin.repeatCount = HUGE
+        //        self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
+        //        self.globe.addAnimation(spin, forKey: "spin around")
     }
     
     @IBAction func touchedScoreView(){
@@ -124,7 +124,7 @@ class ChooseViewController : UIViewController{
 }
 
 class QuizViewController : UIViewController {
-
+    
     let inform = InformViewController(screenType: .mac, isPortrait: true)
     let buttonChangeColor = UIButton()
     let backgroundQuiz = UIImageView()
@@ -163,7 +163,7 @@ class QuizViewController : UIViewController {
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
-
+        
         // Quiz
         question.frame = CGRect(x: 400, y: 300, width: 580, height: 70)
         question.numberOfLines = 2
@@ -195,6 +195,14 @@ class QuizViewController : UIViewController {
         answerD.titleLabel?.textAlignment = .left
         answerD.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
+        sportLabel.text = game.quiz[sportIndex].name
+        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
+        question.text = game.quiz[sportIndex].questions[questionIndex].asking
+        answerA.setTitle("a. "+game.quiz[sportIndex].questions[questionIndex].alternativeA, for: .normal)
+        answerB.setTitle("b. "+game.quiz[sportIndex].questions[questionIndex].alternativeB, for: .normal)
+        answerC.setTitle("c. "+game.quiz[sportIndex].questions[questionIndex].alternativeC, for: .normal)
+        answerD.setTitle("d. "+game.quiz[sportIndex].questions[questionIndex].alternativeD, for: .normal)
+        
         view.addSubview(backgroundQuiz)
         view.addSubview(backButton)
         view.addSubview(sportLabel)
@@ -206,19 +214,6 @@ class QuizViewController : UIViewController {
         view.addSubview(answerD)
         
         self.view = view
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        sportLabel.text = game.quiz[sportIndex].name
-        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
-        question.text = game.quiz[sportIndex].questions[questionIndex].asking
-        answerA.setTitle("a. "+game.quiz[sportIndex].questions[questionIndex].alternativeA, for: .normal)
-        answerB.setTitle("b. "+game.quiz[sportIndex].questions[questionIndex].alternativeB, for: .normal)
-        answerC.setTitle("c. "+game.quiz[sportIndex].questions[questionIndex].alternativeC, for: .normal)
-        answerD.setTitle("d. "+game.quiz[sportIndex].questions[questionIndex].alternativeD, for: .normal)
     }
     
     @objc func touchedBack(){
@@ -230,7 +225,6 @@ class QuizViewController : UIViewController {
         questionIndex = 0
         isCorrect = false
         isLast = false
-        
     }
     
     @objc func selectAnswer(_ sender: UIButton){
@@ -251,17 +245,25 @@ class QuizViewController : UIViewController {
         if(questionIndex == game.quiz[sportIndex].questions.count - 1){
             isLast = true
         }
-                
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(self.inform, animated: true)
-        
-            self.answerA.setTitleColor(.black, for: .normal)
-            self.answerB.setTitleColor(.black, for: .normal)
-            self.answerC.setTitleColor(.black, for: .normal)
-            self.answerD.setTitleColor(.black, for: .normal)
             
-            questionIndex += 1
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let inform = InformViewController(screenType: .mac, isPortrait: true)
+                
+                self.navigationController?.navigationBar.isHidden = true
+                self.navigationController?.pushViewController(inform, animated: true)
+                
+                self.answerA.setTitleColor(.black, for: .normal)
+                self.answerB.setTitleColor(.black, for: .normal)
+                self.answerC.setTitleColor(.black, for: .normal)
+                self.answerD.setTitleColor(.black, for: .normal)
+                
+                questionIndex += 1
+            }
         }
     }
 }
@@ -297,12 +299,12 @@ class InformViewController : UIViewController {
         // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
-
+        
         // Mensage label
         msglabel.font = fontButton
         msglabel.frame = CGRect(x: 430, y: 300, width: 585, height: 80)
         msglabel.textAlignment = .center
-                
+        
         informLabel.numberOfLines = 6
         informLabel.font = fontLabel
         informLabel.frame = CGRect(x: 450, y: 250, width: 585, height: 400)
@@ -316,25 +318,12 @@ class InformViewController : UIViewController {
         nextButton.setTitleColor(.black, for: .normal)
         nextButton.setBackgroundImage(UIImage(imageLiteralResourceName: "proxPergunta.png"), for: .normal)
         nextButton.addTarget(self, action: #selector(touchedNext), for: .touchUpInside)
-        
-        view.addSubview(background)
-        view.addSubview(sportLabel)
-        view.addSubview(sportImage)
-        view.addSubview(msglabel)
-        view.addSubview(informLabel)
-        view.addSubview(nextButton)
-        
-        self.view = view
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+      
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
         informLabel.text = game.quiz[sportIndex].questions[questionIndex].information
         nextButton.setBackgroundImage(UIImage(imageLiteralResourceName: "proxPergunta.png"), for: .normal)
-
+        
         if(isCorrect){
             background.image = UIImage(imageLiteralResourceName: "BackgroundCorrect.png")
         }
@@ -356,6 +345,14 @@ class InformViewController : UIViewController {
             nextButton.setTitle("Próxima Pergunta", for: .normal)
         }
         
+        view.addSubview(background)
+        view.addSubview(sportLabel)
+        view.addSubview(sportImage)
+        view.addSubview(msglabel)
+        view.addSubview(informLabel)
+        view.addSubview(nextButton)
+        
+        self.view = view
     }
     
     @objc func touchedNext(){
@@ -375,7 +372,7 @@ class InformViewController : UIViewController {
 var game: Quiz = Quiz()
 game.quiz = Quiz.createQuiz()
 
-var sport: String = "Futebol"
+var sport: String = "Baseball"
 var sportIndex: Int = game.getIndexFromSport(sport: sport, bank: game)
 var questionIndex: Int = 0
 var isCorrect: Bool = false
