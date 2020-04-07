@@ -338,9 +338,7 @@ class InformViewController : UIViewController {
     }
     
     @objc func touchedNext(){
-        
-//        print("\(questionIndex) = \(game.quiz[sportIndex].questions.count - 1)")
-        
+          
         if(questionIndex == game.quiz[sportIndex].questions.count){
             questionIndex = 0
             self.navigationController?.popToViewController(menu, animated: true)
@@ -354,14 +352,18 @@ class InformViewController : UIViewController {
     }
 }
 
-var sportIndex: Int = 0
-var questionIndex: Int = 0
-var sport: String = ""
-var isCorrect: Bool = false
-var isLast: Bool = false
-
 var game: Quiz = Quiz()
 game.quiz = Quiz.createQuiz()
+
+var sport: String = "Futebol"
+
+var sportIndex: Int = game.getIndexFromSport(sport: sport, bank: game)
+
+print("Index de \(sport): \(sportIndex)")
+
+var questionIndex: Int = 0
+var isCorrect: Bool = false
+var isLast: Bool = false
 
 let menu = MenuViewController(screenType: .mac, isPortrait: true)
 

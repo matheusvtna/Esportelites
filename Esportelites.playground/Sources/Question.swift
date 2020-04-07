@@ -53,4 +53,15 @@ public class Quiz{
         
         return [Sport(sport: "Baseball", questions: baseballQuestions), Sport(sport: "Futebol", questions: soccerQuestions)]
     }
+    
+    public func getIndexFromSport(sport: String, bank: Quiz) -> Int{
+        
+        for (i, item) in bank.quiz.enumerated() {
+            if(item.name == sport){
+                return i
+            }
+        }
+        
+        return 0
+    }
 }
