@@ -17,7 +17,7 @@ class MenuViewController : UIViewController {
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 96)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
     
-    override func loadView() {
+    override func viewDidLoad() {
         let view = UIView()
         
         globe.geometry = SCNSphere(radius: 1.0)
@@ -119,7 +119,7 @@ class ChooseViewController : UIViewController{
     let background = UIImageView()
     let instructionLabel = UILabel()
     
-    override func loadView(){
+    override func viewDidLoad(){
         
     }
 }
@@ -141,7 +141,7 @@ class QuizViewController : UIViewController {
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 26)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
     
-    override func loadView() {
+    override func viewDidLoad() {
         let view = UIView()
         
         // Background
@@ -271,7 +271,7 @@ class InformViewController : UIViewController {
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 22)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 28)
     
-    override func loadView() {
+    override func viewDidLoad(){
         navigationController?.navigationBar.isHidden = true
         let view = UIView()
         
