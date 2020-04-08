@@ -4,7 +4,6 @@ import SceneKit
 
 class MenuViewController : UIViewController {
     
-    let quiz = QuizViewController(screenType: .mac, isPortrait: true)
     let buttonStart = UIButton()
     let backgroundMenu = UIImageView()
     let titleLabel = UILabel()
@@ -97,7 +96,8 @@ class MenuViewController : UIViewController {
         //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
         //        self.globe.addAnimation(spin, forKey: "spin around")
         
-        
+        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.pushViewController(quiz, animated: true)
         
