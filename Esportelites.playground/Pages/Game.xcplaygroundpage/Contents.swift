@@ -209,8 +209,8 @@ class QuizViewController : UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
@@ -327,8 +327,8 @@ class InformViewController : UIViewController {
         self.view = view
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
