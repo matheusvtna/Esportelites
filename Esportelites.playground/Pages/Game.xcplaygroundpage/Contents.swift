@@ -217,7 +217,7 @@ class QuizViewController : UIViewController {
     
     @objc func touchedBack(){
         self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToViewController(menu, animated: true)
         
         sport = ""
         sportIndex = 0
@@ -228,10 +228,6 @@ class QuizViewController : UIViewController {
     }
     
     @objc func selectAnswer(_ sender: UIButton){
-        answerA.setTitleColor(.black, for: .normal)
-        answerB.setTitleColor(.black, for: .normal)
-        answerC.setTitleColor(.black, for: .normal)
-        answerD.setTitleColor(.black, for: .normal)
         
         if(sender.titleLabel?.text == game.quiz[sportIndex].questions[questionIndex].answer){
             sender.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.9294117647, blue: 0.4588235294, alpha: 1), for: .normal)
@@ -242,22 +238,22 @@ class QuizViewController : UIViewController {
             isCorrect = false
         }
         
+        let inform = InformViewController(screenType: .mac, isPortrait: true)
+        
+        questionIndex += 1
+        
         if(questionIndex == game.quiz[sportIndex].questions.count - 1){
             isLast = true
         }
         
-        let inform = InformViewController(screenType: .mac, isPortrait: true)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(inform, animated: true)
-        
+            
             self.answerA.setTitleColor(.black, for: .normal)
             self.answerB.setTitleColor(.black, for: .normal)
             self.answerC.setTitleColor(.black, for: .normal)
             self.answerD.setTitleColor(.black, for: .normal)
-            
-            questionIndex += 1
         }
     }
 }
@@ -347,7 +343,12 @@ class InformViewController : UIViewController {
     @objc func touchedNext(){
         
         if(questionIndex == game.quiz[sportIndex].questions.count){
+            sport = ""
+            sportIndex = 0
             questionIndex = 0
+            isCorrect = false
+            isLast = false
+            
             self.navigationController?.popToViewController(menu, animated: true)
         }
         else{
