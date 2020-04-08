@@ -1,6 +1,7 @@
 import UIKit
 import PlaygroundSupport
 import SceneKit
+
 class MenuViewController : UIViewController {
     
     let quiz = QuizViewController(screenType: .mac, isPortrait: true)
@@ -89,21 +90,22 @@ class MenuViewController : UIViewController {
     }
     
     @objc func touchedStart(){
-        //        let spin = CABasicAnimation(keyPath: "rotation.w")
+        // let spin = CABasicAnimation(keyPath: "rotation.w")
         //        spin.toValue = 1000*Double.pi
-        //        spin.duration = 10.0
-        //        spin.repeatCount = HUGE
+        //        spin.duration = 4.0
+        //        spin.repeatCount = 1.0
         //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
         //        self.globe.addAnimation(spin, forKey: "spin around")
+        
         
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.pushViewController(quiz, animated: true)
         
-        //        spin.toValue = 2*Double.pi
-        //        spin.duration = 10.0
-        //        spin.repeatCount = HUGE
-        //        self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
-        //        self.globe.addAnimation(spin, forKey: "spin around")
+        //            spin.toValue = 2*Double.pi
+        //            spin.duration = 10.0
+        //            spin.repeatCount = HUGE
+        //            self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
+        //            self.globe.addAnimation(spin, forKey: "spin around")
     }
     
     @IBAction func touchedScoreView(){
@@ -111,6 +113,7 @@ class MenuViewController : UIViewController {
     }
     
 }
+
 class ChooseViewController : UIViewController{
     
     let background = UIImageView()
@@ -123,8 +126,6 @@ class ChooseViewController : UIViewController{
 
 class QuizViewController : UIViewController {
     
-    
-    let inform = InformViewController(screenType: .mac, isPortrait: true)
     let buttonChangeColor = UIButton()
     let backgroundQuiz = UIImageView()
     let backButton = UIButton()
@@ -147,11 +148,6 @@ class QuizViewController : UIViewController {
         backgroundQuiz.contentMode = .scaleToFill
         backgroundQuiz.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
         backgroundQuiz.image = UIImage(imageLiteralResourceName: "BackgroundQuiz.png")
-        
-        // Botão de voltar
-        backButton.frame = CGRect(x: 50, y: 25, width: 100, height: 100)
-        backButton.setImage(UIImage(imageLiteralResourceName: "ArrowBack.png"), for: .normal)
-        backButton.addTarget(self, action: #selector(touchedBack), for: .touchUpInside)
         
         // Sport Label
         sportLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
@@ -207,7 +203,6 @@ class QuizViewController : UIViewController {
         answerD.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
         view.addSubview(backgroundQuiz)
-        view.addSubview(backButton)
         view.addSubview(sportLabel)
         view.addSubview(sportImage)
         view.addSubview(backButton)
@@ -218,25 +213,11 @@ class QuizViewController : UIViewController {
         view.addSubview(answerD)
         
         self.view = view
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        sportLabel.text = game.quiz[sportIndex].name
-        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
-        question.text = game.quiz[sportIndex].questions[questionIndex].asking
-        answerA.setTitle("a. "+game.quiz[sportIndex].questions[questionIndex].alternativeA, for: .normal)
-        answerB.setTitle("b. "+game.quiz[sportIndex].questions[questionIndex].alternativeB, for: .normal)
-        answerC.setTitle("c. "+game.quiz[sportIndex].questions[questionIndex].alternativeC, for: .normal)
-        answerD.setTitle("d. "+game.quiz[sportIndex].questions[questionIndex].alternativeD, for: .normal)
     }
     
     @objc func touchedBack(){
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.popViewController(animated: true)
-        self.navigationController?.popToViewController(menu, animated: true)
         
         sport = ""
         sportIndex = 0
@@ -267,12 +248,10 @@ class QuizViewController : UIViewController {
         
         let inform = InformViewController(screenType: .mac, isPortrait: true)
         
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(inform, animated: true)
-            self.navigationController?.pushViewController(self.inform, animated: true)
-            
+        
             self.answerA.setTitleColor(.black, for: .normal)
             self.answerB.setTitleColor(.black, for: .normal)
             self.answerC.setTitleColor(.black, for: .normal)
@@ -285,7 +264,6 @@ class QuizViewController : UIViewController {
 
 class InformViewController : UIViewController {
     
-    let quiz = QuizViewController(screenType: .mac, isPortrait: true)
     let background = UIImageView()
     let sportLabel = UILabel()
     let sportImage = UIImageView()
@@ -323,8 +301,6 @@ class InformViewController : UIViewController {
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
         
-        
-        // Mensage label
         msglabel.font = fontButton
         msglabel.frame = CGRect(x: 430, y: 300, width: 585, height: 80)
         msglabel.textAlignment = .center
@@ -335,7 +311,6 @@ class InformViewController : UIViewController {
         else{
             msglabel.text = "Você errou..."
         }
-        
         
         informLabel.numberOfLines = 6
         informLabel.font = fontLabel
@@ -369,37 +344,6 @@ class InformViewController : UIViewController {
         self.view = view
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        sportLabel.text = game.quiz[sportIndex].name
-        sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
-        informLabel.text = game.quiz[sportIndex].questions[questionIndex].information
-        nextButton.setBackgroundImage(UIImage(imageLiteralResourceName: "proxPergunta.png"), for: .normal)
-        
-        if(isCorrect){
-            background.image = UIImage(imageLiteralResourceName: "BackgroundCorrect.png")
-        }
-        else{
-            background.image = UIImage(imageLiteralResourceName: "BackgroundIncorrect.png")
-        }
-        
-        if(isCorrect){
-            msglabel.text = "Você acertou!!!"
-        }
-        else{
-            msglabel.text = "Você errou..."
-        }
-        
-        if(isLast){
-            nextButton.setTitle(" Finalizar Quiz ", for: .normal)
-        }
-        else{
-            nextButton.setTitle("Próxima Pergunta", for: .normal)
-        }
-        
-    }
-    
     @objc func touchedNext(){
         
         if(questionIndex == game.quiz[sportIndex].questions.count){
@@ -414,16 +358,23 @@ class InformViewController : UIViewController {
         
     }
 }
+
 var game: Quiz = Quiz()
 game.quiz = Quiz.createQuiz()
 
-var sport: String = "Futebol"
+var sport: String = "Baseball"
 var sportIndex: Int = game.getIndexFromSport(sport: sport, bank: game)
 var questionIndex: Int = 0
 var isCorrect: Bool = false
 var isLast: Bool = false
+
 let menu = MenuViewController(screenType: .mac, isPortrait: true)
+
 let navigation = UINavigationController(screenType: .mac, isPortrait: true)
+
 navigation.navigationBar.isHidden = true
 navigation.pushViewController(menu, animated: true)
+
 PlaygroundPage.current.liveView = navigation.scale(to: 0.3)
+
+
