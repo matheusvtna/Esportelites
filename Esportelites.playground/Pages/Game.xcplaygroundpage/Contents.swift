@@ -120,13 +120,13 @@ class MenuViewController : UIViewController {
 
 class SportCollectionViewCell: UICollectionViewCell {
 
-    public let imageView: UIImageView = UIImageView(frame: CGRect(x: 0, y:100, width: 210, height: 210))
-    public let labelSport: UILabel = UILabel(frame: CGRect(x:0, y: 0, width: 210,height: 20))
+    public let imageView: UIImageView = UIImageView(frame: CGRect(x: 0, y:30, width: 210, height: 210))
+    public let labelSport: UILabel = UILabel(frame: CGRect(x:0, y: 0, width: 210,height: 30))
     
     public override init(frame: CGRect){
         super.init(frame:frame)
         self.addSubview(imageView)
-        labelSport.font = UIFont.systemFont(ofSize: 20)
+        labelSport.font = UIFont.systemFont(ofSize: 40)
         labelSport.textAlignment = NSTextAlignment.center
         self.addSubview(labelSport)
     }
@@ -165,7 +165,7 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
         layout.sectionInset = UIEdgeInsets(top: 32, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 210, height: 215)
 
-        myCollectionView = UICollectionView(frame: CGRect(x: 0, y: 500, width: 1440, height: 400), collectionViewLayout: layout)
+        myCollectionView = UICollectionView(frame: CGRect(x: 0, y: 550, width: 1440, height: 400), collectionViewLayout: layout)
         
         myCollectionView?.register(SportCollectionViewCell.self, forCellWithReuseIdentifier: "MinhaCellCustomizada")
         myCollectionView?.backgroundColor = UIColor.clear
