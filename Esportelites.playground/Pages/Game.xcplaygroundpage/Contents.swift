@@ -96,10 +96,14 @@ class MenuViewController : UIViewController {
         //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
         //        self.globe.addAnimation(spin, forKey: "spin around")
         
-        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
-
+//        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+//
+//        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.pushViewController(quiz, animated: true)
+        
+        let choose = ChooseSportViewController(screenType: .mac, isPortrait: true)
         self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.pushViewController(quiz, animated: true)
+        self.navigationController?.pushViewController(choose, animated: true)
         
         //            spin.toValue = 2*Double.pi
         //            spin.duration = 10.0
@@ -114,14 +118,93 @@ class MenuViewController : UIViewController {
     
 }
 
-class ChooseViewController : UIViewController{
+class SportCollectionViewCell: UICollectionViewCell {
+
+    public let imageView: UIImageView = UIImageView(frame: CGRect(x: 0, y:100, width: 210, height: 210))
+    public let labelSport: UILabel = UILabel(frame: CGRect(x:0, y: 0, width: 210,height: 20))
+    
+    public override init(frame: CGRect){
+        super.init(frame:frame)
+        self.addSubview(imageView)
+        labelSport.font = UIFont.systemFont(ofSize: 20)
+        labelSport.textAlignment = NSTextAlignment.center
+        self.addSubview(labelSport)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ChooseSportViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    var myCollectionView:UICollectionView?
+    var sports: [Sport] = Model.shared
     
     let background = UIImageView()
     let instructionLabel = UILabel()
+    let backButton = UIButton()
     
-    override func viewDidLoad(){
+    let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 54)
+    
+    override func loadView() {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 1440, height: 900))
+
+        background.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
+        background.contentMode = .scaleToFill
+        background.image = UIImage(named: "BackgroundStars.png")
         
+        instructionLabel.frame = CGRect(x: 10, y: 10, width: 1440, height: 100)
+        instructionLabel.text = "Selecione o esporte desejado para iniciar o quiz."
+        instructionLabel.font = fontLabel
+        instructionLabel.textAlignment = .center
+        instructionLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 32, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 210, height: 215)
+
+        myCollectionView = UICollectionView(frame: CGRect(x: 0, y: 500, width: 1440, height: 400), collectionViewLayout: layout)
+        
+        myCollectionView?.register(SportCollectionViewCell.self, forCellWithReuseIdentifier: "MinhaCellCustomizada")
+        myCollectionView?.backgroundColor = UIColor.clear
+        myCollectionView?.dataSource = self
+        myCollectionView?.delegate = self
+        
+        view.addSubview(background)
+        view.addSubview(instructionLabel)
+        view.addSubview(myCollectionView!)
+        
+        self.view = view
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sports.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MinhaCellCustomizada", for: indexPath) as? SportCollectionViewCell
+        
+        myCell?.imageView.image = UIImage(named: sports[indexPath.section].image)
+        
+        myCell?.labelSport.text = sports[indexPath.section].name
+        myCell?.labelSport.textColor = .white
+        myCell?.labelSport.textAlignment = .center
+        
+        return myCell!
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // do something
+        print("Selecionei o item \(indexPath.section): \(sports[indexPath.section].name)")
+    }
+    
 }
 
 class QuizViewController : UIViewController {

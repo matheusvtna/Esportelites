@@ -21,7 +21,7 @@ public class Question{
     }
 }
 
-public class Sport{
+public class QuestionsBank{
     
     public let name: String
     public var questions: [Question]
@@ -39,19 +39,19 @@ public class Sport{
 
 public class Quiz{
     
-    public var quiz: [Sport]
+    public var quiz: [QuestionsBank]
     
     public init(){
         self.quiz = []
     }
     
-    public static func createQuiz() -> [Sport]{
+    public static func createQuiz() -> [QuestionsBank]{
         
         let baseballQuestions = [Question(asking: "Qual o país de origem do Baseball?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "a. Estados Unidos", inform: "O jogo foi criado nos Estados Unidos em 1839. Porém, as regras foram feitas em 1845, pelo norte-americano Alexander Cartwright. O primeiro jogo oficial foi disputado em 19 de junho de 1846, na cidade de Nova Iorque."), Question(asking: "Oi galhera?", labelA: "Oi", labelB: "E aí", labelC: "Dale", labelD: "Olá", answer: "d. Olá", inform: "Bla bla bla")]
         
         let soccerQuestions = [Question(asking: "Qual o país de origem do Futebol?", labelA: "Estados Unidos", labelB: "Inglaterra", labelC: "Brasil", labelD: "África do Sul", answer: "c. Brasil", inform: "Os brasileiros são pika!")]
         
-        return [Sport(sport: "Baseball", questions: baseballQuestions), Sport(sport: "Futebol", questions: soccerQuestions)]
+        return [QuestionsBank(sport: "Baseball", questions: baseballQuestions), QuestionsBank(sport: "Futebol", questions: soccerQuestions)]
     }
     
     public func getIndexFromSport(sport: String, bank: Quiz) -> Int{
