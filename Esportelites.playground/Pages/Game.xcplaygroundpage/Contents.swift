@@ -13,7 +13,6 @@ class MenuViewController : UIViewController {
     let scoreLabel = UILabel()
     let scene = SCNScene()
     let globe = SCNNode()
-    let choose = ChooseSportViewController(screenType: .mac, isPortrait: true)
     
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 96)
     let fontButton = UIFont(name: "ChalkboardSE-Light", size: 30)
@@ -52,13 +51,7 @@ class MenuViewController : UIViewController {
         titleLabel.text = "Bem-vindo ao Esportélites!"
         titleLabel.font = fontLabel
         titleLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-        
-        //        instructionLabel.frame = CGRect(x: 90, y: 110, width: 1230, height: 90)
-        //        instructionLabel.textAlignment = .center
-        //        instructionLabel.text = "Swipe the sports satellites and choose the mode to start the quiz."
-        //        instructionLabel.font = fontButton
-        //        instructionLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
-        
+                
         // Start Button
         buttonStart.frame = CGRect(x: 621, y: 803, width: 219, height: 67)
         buttonStart.setTitle("Começar", for: .normal)
@@ -91,26 +84,11 @@ class MenuViewController : UIViewController {
     }
     
     @objc func touchedStart(){
-        // let spin = CABasicAnimation(keyPath: "rotation.w")
-        //        spin.toValue = 1000*Double.pi
-        //        spin.duration = 4.0
-        //        spin.repeatCount = 1.0
-        //        self.globe.rotation = SCNVector4(x: 0.0, y: -1000.0, z: 0.0, w: 0.0)
-        //        self.globe.addAnimation(spin, forKey: "spin around")
-        
-        //        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
-        //
-        //        self.navigationController?.navigationBar.isHidden = true
-        //        self.navigationController?.pushViewController(quiz, animated: true)
+        let choose = ChooseSportViewController(screenType: .mac, isPortrait: true)
         
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.pushViewController(choose, animated: true)
         
-        //            spin.toValue = 2*Double.pi
-        //            spin.duration = 10.0
-        //            spin.repeatCount = HUGE
-        //            self.globe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
-        //            self.globe.addAnimation(spin, forKey: "spin around")
     }
     
     @IBAction func touchedScoreView(){
@@ -147,15 +125,14 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
     let startLabel = UILabel()
     let backButton = UIButton()
     
-    let spriteView = SKView()
     let sceneSatellite = SCNScene()
     let sportGlobe = SCNNode()
+
+    let spriteView = SKView()
     let spriteScene = SKScene()
-    //let sateliteImage = UIImageView()
     let rocket = SKSpriteNode(imageNamed: "FogueteImage.png")
     
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 54)
-    
     let quizLabel = UIFont(name: "ChalkboardSE-Light", size: 164)
     
     override func loadView() {
@@ -190,10 +167,6 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
         background.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
         background.contentMode = .scaleToFill
         background.image = UIImage(named: "BackgroundStars.png")
-        
-        //        sateliteImage.frame = CGRect(x: 1100, y: 130, width: 260, height: 270)
-        //        sateliteImage.contentMode = .scaleToFill
-        //        sateliteImage.image = UIImage(named: "Circle.png")
         
         instructionLabel.frame = CGRect(x: 0, y: 580, width: 1440, height: 100)
         instructionLabel.text = "Selecione o esporte desejado para iniciar o quiz."
@@ -237,7 +210,6 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
         view.addSubview(instructionLabel)
         view.addSubview(startLabel)
         view.addSubview(myCollectionView!)
-        //view.addSubview(sateliteImage)
         view.addSubview(spriteView)
         view.addSubview(backButton)
         
@@ -286,9 +258,9 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
         
         sport = sports[indexPath.section].name
         sportIndex = game.getIndexFromSport(sport: sport, bank: game)
-            
+        
         let quiz = QuizViewController(screenType: .mac, isPortrait: true)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
@@ -559,5 +531,3 @@ navigation.navigationBar.isHidden = true
 navigation.pushViewController(menu, animated: true)
 
 PlaygroundPage.current.liveView = navigation.scale(to: 0.3)
-
-
