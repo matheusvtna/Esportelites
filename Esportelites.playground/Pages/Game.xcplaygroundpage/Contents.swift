@@ -284,6 +284,16 @@ class ChooseSportViewController : UIViewController, UICollectionViewDataSource, 
         
         animateRocket()
         
+        sport = sports[indexPath.section].name
+        sportIndex = game.getIndexFromSport(sport: sport, bank: game)
+            
+        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.pushViewController(quiz, animated: true)
+        }
+        
     }
     
     func animateRocket(){
