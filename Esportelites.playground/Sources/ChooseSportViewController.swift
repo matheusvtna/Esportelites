@@ -50,8 +50,8 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         sportGlobe.geometry = SCNSphere(radius: 0.1)
         sceneSatellite.rootNode.addChildNode(sportGlobe)
         
-        sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
-        sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
+//        sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
+//        sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
         
         let spin = CABasicAnimation(keyPath: "rotation.w")
         spin.toValue = 2*Double.pi
@@ -60,7 +60,7 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         sportGlobe.rotation = SCNVector4(x: 0.0, y: -1.0, z: 0.0, w: 0.0)
         sportGlobe.addAnimation(spin, forKey: "spin around")
         
-        let sceneView = SCNView(frame: CGRect(x: 1000, y: 100, width: 300, height: 300))
+        let sceneView = SCNView(frame: CGRect(x: 1000, y: 120, width: 300, height: 300))
         sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         sceneView.showsStatistics = false
@@ -110,7 +110,7 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         
         rocket.setScale(1.0)
         rocket.anchorPoint = CGPoint.zero
-        rocket.position = CGPoint(x: 80.0, y: 30.0)
+        rocket.position = CGPoint(x: 80.0, y: 50.0)
         spriteScene.addChild(rocket)
         
         view.addSubview(background)
@@ -152,8 +152,12 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
                 
+        print("Selecionei")
+        
         sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: sports[indexPath.section].name+"Texture.png")
         sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: sports[indexPath.section].name+"Texture.png")
+        
+        print("Achei texture")
         
         rocket.position = CGPoint(x: 80.0, y: 30.0)
         instructionLabel.isHidden = false
