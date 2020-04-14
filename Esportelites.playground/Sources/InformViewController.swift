@@ -29,17 +29,14 @@ public class InformViewController : UIViewController {
         
         game.quiz = Quiz.createQuiz()
         
-        // Background
         background.contentMode = .scaleToFill
         background.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
                 
-        // Sport Label
         sportLabel.frame = CGRect(x: 90, y: 10, width: 1210, height: 100)
         sportLabel.textAlignment = .center
         sportLabel.font = fontTitle
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
         
-        // Sport Image
         sportImage.contentMode = .scaleToFill
         sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
         
@@ -52,7 +49,6 @@ public class InformViewController : UIViewController {
         informLabel.frame = CGRect(x: 450, y: 250, width: 585, height: 400)
         informLabel.textAlignment = .justified
         
-        // Next Button
         nextButton.frame = CGRect(x: 558, y: 703, width: 319, height: 67)
         nextButton.titleLabel?.font = fontButton
         nextButton.titleLabel?.textAlignment = .center
@@ -75,11 +71,11 @@ public class InformViewController : UIViewController {
         
         if(isCorrect){
             background.image = UIImage(imageLiteralResourceName: "BackgroundCorrect.png")
-            msglabel.text = "Você acertou!!!"
+            msglabel.text = "Na mosca! Você acertou!!"
         }
         else{
             background.image = UIImage(imageLiteralResourceName: "BackgroundIncorrect.png")
-            msglabel.text = "Você errou..."
+            msglabel.text = "Quase... Mais sorte na próxima!!"
         }
         
         if(isLast){
