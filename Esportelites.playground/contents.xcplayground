@@ -3,5 +3,9 @@
     <pages>
         <page name='Game'/>
         <page name='Globe3D'/>
+        <page name='Menu Page'/>
+        <page name='Choose Sport Page'/>
+        <page name='Quiz Page '/>
+        <page name='Information Page'/>
     </pages>
 </playground>
