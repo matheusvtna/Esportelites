@@ -1,7 +1,7 @@
 import Foundation
 
 public class Model {
-    public static let shared = [Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png"), Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png"), Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png"), Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png"), Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png"), Sport(name: "Futebol", image: "FutebolImage.png", photo: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png", photo: "BaseballImage.png")]
+    public static let shared = [Sport(name: "Futebol", image: "FutebolImage.png"), Sport(name: "Baseball", image: "BaseballImage.png"), Sport(name: "Basquete", image: "BasqueteImage.png")]
         
     private init() {
         
