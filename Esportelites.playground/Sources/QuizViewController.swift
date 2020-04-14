@@ -96,7 +96,7 @@ public class QuizViewController : UIViewController {
         super.viewWillAppear(animated)
 
         sportIndex = game.getIndexFromSport(sport: sport)
-        print(sportIndex)
+        print("Esporte \(sportIndex) :: Questão \(questionIndex)")
         
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")

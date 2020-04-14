@@ -99,7 +99,7 @@ public class InformViewController : UIViewController {
     
     @objc func touchedNext(){
         
-        if(questionIndex == game.quiz[sportIndex].questions.count){
+        if(isLast){
             sportIndex = 0
             questionIndex = 0
             isCorrect = false
