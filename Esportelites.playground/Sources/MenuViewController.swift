@@ -20,7 +20,7 @@ public class MenuViewController : UIViewController {
     public override func loadView() {
         let view = UIView()
         
-        globe.geometry = SCNSphere(radius: 1.0)
+        globe.geometry = SCNSphere(radius: 2.0)
         scene.rootNode.addChildNode(globe)
         
         globe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
@@ -88,7 +88,7 @@ public class MenuViewController : UIViewController {
     }
     
     @objc func touchedScoreView(){
-        print("Você é um perdedor, Matheus!")
+        print("Você tocou no botão do trofeu XD")
     }
     
 }

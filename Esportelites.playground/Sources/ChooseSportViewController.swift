@@ -159,12 +159,17 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         instructionLabel.isHidden = false
         startLabel.isHidden = true
         myCollectionView?.isHidden = true
+        backButton.isHidden = true
+        instructionLabel.isHidden = true
+        startLabel.isHidden = false
         
         animateRocket()
         
         sport = sports[indexPath.section].name
         
-        let quiz = QuizViewController(screenType: .mac, isPortrait: true)
+        let quiz = QuizViewController()
+        
+        quiz.sport = sport
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             self.navigationController?.navigationBar.isHidden = true
@@ -174,11 +179,7 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
     }
     
     public func animateRocket(){
-        let toSatellite = SKAction.moveBy(x: 1000, y: 150, duration: 4.0)
-        
+        let toSatellite = SKAction.moveBy(x: 990, y: 150, duration: 4.0)
         rocket.run(toSatellite)
-        
-        instructionLabel.isHidden = true
-        startLabel.isHidden = false
     }
 }
