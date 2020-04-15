@@ -40,19 +40,16 @@ public class MenuViewController : UIViewController {
         viewEarth.scene = scene
         viewEarth.backgroundColor = .clear
         
-        // Background
         backgroundMenu.contentMode = .scaleToFill
         backgroundMenu.frame = CGRect(x: 0, y: 0, width: 1440, height: 900)
         backgroundMenu.image = UIImage(imageLiteralResourceName: "BackgroundStars.png")
         
-        // Title Label
         titleLabel.frame = CGRect(x: 120, y: 10, width: 1210, height: 100)
         titleLabel.textAlignment = .center
         titleLabel.text = "Bem-vindo ao Esportélites!"
         titleLabel.font = fontLabel
         titleLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
                 
-        // Start Button
         buttonStart.frame = CGRect(x: 621, y: 803, width: 219, height: 67)
         buttonStart.setTitle("Começar", for: .normal)
         buttonStart.titleLabel?.font = fontButton
@@ -61,7 +58,6 @@ public class MenuViewController : UIViewController {
         buttonStart.setBackgroundImage(UIImage(imageLiteralResourceName: "proxPergunta.png"), for: .normal)
         buttonStart.addTarget(self, action: #selector(touchedStart), for: .touchUpInside)
         
-        // Score
         trophyButton.frame = CGRect(x: 1157, y: 724, width: 178, height: 86)
         trophyButton.setBackgroundImage(UIImage(imageLiteralResourceName: "trofeu.png"), for: .normal)
         trophyButton.addTarget(self, action: #selector(touchedScoreView), for: .touchUpInside)
