@@ -5,7 +5,7 @@ import PlaygroundSupport
 
 public let menu = MenuViewController()
 
-public let navigation = UINavigationController(screenType: .mac, isPortrait: true)
+let navigation = UINavigationController(screenType: .mac, isPortrait: true)
 navigation.navigationBar.isHidden = true
 navigation.pushViewController(menu, animated: true)
 
