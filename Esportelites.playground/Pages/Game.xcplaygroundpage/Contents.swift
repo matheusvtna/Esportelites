@@ -3,7 +3,7 @@ import SceneKit
 import SpriteKit
 import PlaygroundSupport
 
-public let menu = MenuViewController()
+let menu = MenuViewController()
 
 let navigation = UINavigationController(screenType: .mac, isPortrait: true)
 navigation.navigationBar.isHidden = true
