@@ -43,37 +43,37 @@ public class QuizViewController : UIViewController {
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
         
         sportImage.contentMode = .scaleToFill
-        sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
+        sportImage.frame = CGRect(x: 650, y: 125, width: 110, height: 115)
         
         backButton.frame = CGRect(x: 25, y: 25, width: 100, height: 100)
         backButton.setImage(UIImage(imageLiteralResourceName: "ArrowBack.png"), for: .normal)
         backButton.addTarget(self, action: #selector(touchedBack), for: .touchUpInside)
         
-        question.frame = CGRect(x: 400, y: 300, width: 580, height: 70)
+        question.frame = CGRect(x: 375, y: 300, width: 640, height: 90)
         question.numberOfLines = 2
         question.textAlignment = .center
         question.font = fontLabel
         question.textColor = .black
         
-        answerA.frame = CGRect(x: 485, y: 382, width: 382, height: 30)
+        answerA.frame = CGRect(x: 430, y: 382, width: 530, height: 30)
         answerA.titleLabel?.font = fontLabel
         answerA.setTitleColor(.black, for: .normal)
         answerA.titleLabel?.textAlignment = .left
         answerA.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
-        answerB.frame = CGRect(x: 485, y: 427, width: 382, height: 30)
+        answerB.frame = CGRect(x: 430, y: 427, width: 530, height: 30)
         answerB.titleLabel?.font = fontLabel
         answerB.setTitleColor(.black, for: .normal)
         answerB.titleLabel?.textAlignment = .left
         answerB.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
-        answerC.frame = CGRect(x: 485, y: 475, width: 382, height: 30)
+        answerC.frame = CGRect(x: 430, y: 475, width: 530, height: 30)
         answerC.titleLabel?.font = fontLabel
         answerC.setTitleColor(.black, for: .normal)
         answerC.titleLabel?.textAlignment = .left
         answerC.addTarget(self, action: #selector(selectAnswer), for: .touchUpInside)
         
-        answerD.frame = CGRect(x: 485, y: 517, width: 382, height: 30)
+        answerD.frame = CGRect(x: 430, y: 517, width: 530, height: 30)
         answerD.titleLabel?.font = fontLabel
         answerD.setTitleColor(.black, for: .normal)
         answerD.titleLabel?.textAlignment = .left
@@ -96,7 +96,7 @@ public class QuizViewController : UIViewController {
         super.viewWillAppear(animated)
 
         sportIndex = game.getIndexFromSport(sport: sport)
-        print("Esporte \(sportIndex) :: Questão \(questionIndex)")
+        print("\(sport) \(sportIndex) :: Questão \(questionIndex)")
         
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
@@ -129,6 +129,7 @@ public class QuizViewController : UIViewController {
         }
         
         let inform = InformViewController()
+        inform.sport = sport
         inform.sportIndex = sportIndex
         inform.questionIndex = questionIndex
         inform.isLast = isLast

@@ -41,6 +41,10 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
     let fontLabel = UIFont(name: "ChalkboardSE-Light", size: 54)
     let quizLabel = UIFont(name: "ChalkboardSE-Light", size: 164)
     
+    let timeLabel = UILabel()
+    var timer: Timer?
+    var timeLeft = 5
+    
     var sport = String()
         
     public override func loadView() {
@@ -50,8 +54,8 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         sportGlobe.geometry = SCNSphere(radius: 0.1)
         sceneSatellite.rootNode.addChildNode(sportGlobe)
         
-//        sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "earth_normalmap.jpg")
-//        sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "alt_earth_texture.jpg")
+        sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: "DefaultTexture.png")
+        sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: "DefaultTexture.png")
         
         let spin = CABasicAnimation(keyPath: "rotation.w")
         spin.toValue = 2*Double.pi
@@ -113,6 +117,12 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         rocket.position = CGPoint(x: 80.0, y: 50.0)
         spriteScene.addChild(rocket)
         
+        timeLabel.frame = CGRect(x: 0, y: 480, width: 1440, height: 200)
+        timeLabel.font = quizLabel
+        timeLabel.textAlignment = .center
+        timeLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
+        timeLabel.isHidden = true
+        
         view.addSubview(background)
         view.addSubview(sceneView)
         view.addSubview(instructionLabel)
@@ -120,8 +130,19 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         view.addSubview(myCollectionView!)
         view.addSubview(spriteView)
         view.addSubview(backButton)
+        view.addSubview(timeLabel)
         
         self.view = view
+    }
+    
+    @objc func countdownQuiz(){
+        timeLabel.text = "\(timeLeft)"
+        timeLeft -= 1
+        
+        if timeLeft <= 0 {
+            timer?.invalidate()
+            timer = nil
+        }
     }
     
     @objc func touchedBack(){
@@ -152,20 +173,18 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
                 
-        print("Selecionei")
-        
         sportGlobe.geometry?.firstMaterial?.normal.contents = UIImage(imageLiteralResourceName: sports[indexPath.section].name+"Texture.png")
         sportGlobe.geometry?.firstMaterial?.diffuse.contents = UIImage(imageLiteralResourceName: sports[indexPath.section].name+"Texture.png")
-        
-        print("Achei texture")
-        
+                
         rocket.position = CGPoint(x: 80.0, y: 30.0)
         instructionLabel.isHidden = false
         startLabel.isHidden = true
         myCollectionView?.isHidden = true
         backButton.isHidden = true
         instructionLabel.isHidden = true
-        startLabel.isHidden = false
+        timeLabel.isHidden = false
+        
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(countdownQuiz), userInfo: nil, repeats: true)
         
         animateRocket()
         
@@ -175,7 +194,12 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         
         quiz.sport = sport
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+            self.timeLabel.isHidden = true
+            self.startLabel.isHidden = false
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.5) {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.pushViewController(quiz, animated: true)
         }
@@ -183,7 +207,7 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
     }
     
     public func animateRocket(){
-        let toSatellite = SKAction.moveBy(x: 990, y: 150, duration: 4.0)
+        let toSatellite = SKAction.moveBy(x: 990, y: 150, duration: 6.0)
         rocket.run(toSatellite)
     }
 }

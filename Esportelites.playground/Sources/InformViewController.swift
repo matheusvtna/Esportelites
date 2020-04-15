@@ -38,13 +38,13 @@ public class InformViewController : UIViewController {
         sportLabel.textColor = #colorLiteral(red: 0.8823529412, green: 0.6470588235, blue: 0.2745098039, alpha: 1)
         
         sportImage.contentMode = .scaleToFill
-        sportImage.frame = CGRect(x: 655, y: 125, width: 110, height: 115)
+        sportImage.frame = CGRect(x: 650, y: 125, width: 110, height: 115)
         
         msglabel.font = fontButton
         msglabel.frame = CGRect(x: 430, y: 300, width: 585, height: 80)
         msglabel.textAlignment = .center
                 
-        informLabel.numberOfLines = 6
+        informLabel.numberOfLines = 8
         informLabel.font = fontLabel
         informLabel.frame = CGRect(x: 450, y: 250, width: 585, height: 400)
         informLabel.textAlignment = .justified
@@ -88,9 +88,7 @@ public class InformViewController : UIViewController {
         sportLabel.text = game.quiz[sportIndex].name
         sportImage.image = UIImage(imageLiteralResourceName: game.quiz[sportIndex].name+"Image.png")
         informLabel.text = game.quiz[sportIndex].questions[questionIndex].information
-
-        
-        
+   
     }
     
     @objc func touchedNext(){
