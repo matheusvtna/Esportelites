@@ -100,9 +100,9 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 32, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 180, height: 165)
+        layout.itemSize = CGSize(width: 200, height: 165)
         
-        myCollectionView = UICollectionView(frame: CGRect(x: 130, y: 680, width: 1200, height: 400), collectionViewLayout: layout)
+        myCollectionView = UICollectionView(frame: CGRect(x: 300, y: 680, width: 1040, height: 400), collectionViewLayout: layout)
         
         myCollectionView?.register(SportCollectionViewCell.self, forCellWithReuseIdentifier: "MinhaCellCustomizada")
         myCollectionView?.backgroundColor = UIColor.clear
