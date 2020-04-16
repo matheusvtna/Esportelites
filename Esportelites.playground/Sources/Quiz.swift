@@ -55,7 +55,9 @@ public class Quiz{
         
         let voleiQuestions = [Question(asking: "A China é uma jogada de que fundamento?", labelA: "Passe", labelB: "Ataque", labelC: "Defesa", labelD: "Recepção", answer: "b. Ataque", inform: "\nNo voleibol, China é uma jogada de ataque quase exclusiva do vôlei feminino, em que a atacante (normalmente a central) finta a marcação adversária com o movimento de pernas, fingindo correr para o meio e seguindo para as costas de sua levantadora.")]
         
-        return [QuestionsBank(sport: "Baseball", questions: baseballQuestions), QuestionsBank(sport: "Futebol", questions: soccerQuestions), QuestionsBank(sport:"Basquete", questions: basketQuestions), QuestionsBank(sport: "Volei", questions: voleiQuestions)]
+        let quiz = [QuestionsBank(sport: "Baseball", questions: baseballQuestions), QuestionsBank(sport: "Futebol", questions: soccerQuestions), QuestionsBank(sport:"Basquete", questions: basketQuestions), QuestionsBank(sport: "Volei", questions: voleiQuestions)]
+        
+        return quiz
     }
     
     public func getIndexFromSport(sport: String) -> Int{
