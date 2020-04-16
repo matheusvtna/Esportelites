@@ -34,8 +34,8 @@ public class MenuViewController : UIViewController {
         globe.addAnimation(spin, forKey: "spin around")
         
         let viewEarth = SCNView(frame: CGRect(x: 0, y: 100, width: 1440, height: 700))
-        viewEarth.allowsCameraControl = true
-        viewEarth.autoenablesDefaultLighting = true
+        viewEarth.allowsCameraControl = false
+        viewEarth.autoenablesDefaultLighting = false
         viewEarth.showsStatistics = false
         viewEarth.scene = scene
         viewEarth.backgroundColor = .clear

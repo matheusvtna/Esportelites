@@ -11,4 +11,3 @@ navigation.pushViewController(menu, animated: true)
 
 PlaygroundPage.current.liveView = navigation.scale(to: 0.5)
 PlaygroundPage.current.needsIndefiniteExecution = true
-

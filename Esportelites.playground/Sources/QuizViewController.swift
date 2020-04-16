@@ -49,7 +49,7 @@ public class QuizViewController : UIViewController {
         backButton.setImage(UIImage(imageLiteralResourceName: "ArrowBack.png"), for: .normal)
         backButton.addTarget(self, action: #selector(touchedBack), for: .touchUpInside)
         
-        question.frame = CGRect(x: 375, y: 300, width: 640, height: 90)
+        question.frame = CGRect(x: 390, y: 300, width: 640, height: 90)
         question.numberOfLines = 2
         question.textAlignment = .center
         question.font = fontLabel

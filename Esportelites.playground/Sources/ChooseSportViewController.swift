@@ -65,8 +65,8 @@ public class ChooseSportViewController : UIViewController, UICollectionViewDataS
         sportGlobe.addAnimation(spin, forKey: "spin around")
         
         let sceneView = SCNView(frame: CGRect(x: 1000, y: 120, width: 300, height: 300))
-        sceneView.allowsCameraControl = true
-        sceneView.autoenablesDefaultLighting = true
+        sceneView.allowsCameraControl = false
+        sceneView.autoenablesDefaultLighting = false
         sceneView.showsStatistics = false
         sceneView.scene = sceneSatellite
         sceneView.backgroundColor = .clear
